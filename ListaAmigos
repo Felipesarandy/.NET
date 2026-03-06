@@ -1,0 +1,115 @@
+Class Form1
+namespace ListaAmigos
+{
+    public partial class Form1 : Form
+    {
+        List<Amigo> listaAmigos = new List<Amigo>();
+
+        public object Nome { get; private set; }
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            string nome = txtNome.Text;
+
+            Amigo encontrado = listaAmigos.Find(a => a.Nome == nome);
+
+            if (encontrado != null)
+            {
+                txtTelefone.Text = encontrado.Telefone;
+                txtEmail.Text = encontrado.Email;
+            }
+
+            else
+            {
+                MessageBox.Show("Amigo não encontrado!");
+            }
+        }
+
+        private void btnCadastrar_Click(object sender, EventArgs e)
+        {
+            Amigo a = new Amigo();
+
+            a.Nome = txtNome.Text;
+            a.Telefone = txtTelefone.Text;
+            a.Email = txtEmail.Text;
+
+            listaAmigos.Add(a);
+
+            MessageBox.Show("Amigo cadastrado com sucesso!");
+
+            txtNome.Clear();
+            txtTelefone.Clear();
+            txtEmail.Clear();
+        }
+
+        private void btnRemover_Click(object sender, EventArgs e)
+        {
+            string nome = txtNome.Text;
+
+            Amigo encontrado = listaAmigos.Find(a => a.Nome == nome);
+
+            if (encontrado != null)
+            {
+                listaAmigos.Remove(encontrado);
+                MessageBox.Show("Amigo removido com sucesso!");
+            }
+
+            else
+            {
+                MessageBox.Show("Amigo não encontrado!");
+            }
+        }
+
+        private void btnListar_Click(object sender, EventArgs e)
+        {
+            listBoxAmigos.Items.Clear();
+
+            foreach (Amigo a in listaAmigos)
+            {
+                listBoxAmigos.Items.Add(a);
+            }
+        }
+    }
+}
+
+Class Amigo
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ListaAmigos
+{
+    public class Amigo
+    {
+        public string Nome { get; set; }
+        public string Telefone { get; set; }
+        public string Email { get; set; }
+
+        public override string ToString()
+        {
+            return Nome + " - " + Telefone + " - " + Email;
+        }
+    }
+}
+
+
